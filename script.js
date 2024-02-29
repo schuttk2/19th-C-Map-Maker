@@ -8,10 +8,9 @@ L.imageOverlay(imageUrl, imageBounds).addTo(map);
 
 L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6IjZjNmRjNzk3ZmE2MTcwOTEwMGY0MzU3YjUzOWFmNWZhIn0.Y8bhBaUMqFiPrDRW9hieoQ', {
     maxZoom: 18,
-    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
-        '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-        'Imagery © <a href="http://mapbox.com">Mapbox</a>',
-    id: 'mapbox.streets'
+    attribution: 'Le Monde, principales decouvertes ' +
+        '<a href="https://www.davidrumsey.com/luna/servlet/detail/RUMSEY~8~1~22005~700037:Le-Monde%2C-principales-decouvertes-?sort=Pub_List_No_InitialSort%2CPub_Date%2CPub_List_No%2CSeries_No&qvq=q:Le%20Monde%2C%20principales%20decouvertes;sort:Pub_List_No_InitialSort%2CPub_Date%2CPub_List_No%2CSeries_No;lc:RUMSEY~8~1&mi=0&trs=1#">David Rumsey Map Collection</a>, ',
+    id: 'le-monde'
 }).addTo(map);
 
 // Function to open About page modal
@@ -104,15 +103,12 @@ function generateEmbedCode(mapState){
         <div id="embeddedMap" style="height: 400px;"></div>
 
         <script>
-            // Set up the embedded map using the saved state
             const embeddedMap = L.map('embeddedMap').setView([${center.lat}, ${center.lng}], ${zoom});
 
-            // Add your base layer (adjust this based on your needs)
-            const baseLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: 'OpenStreetMap'
+            const baseLayer = L.tileLayer('https://schuttk2.github.io/darwin-map/1800s-map.jpg', {
+                attribution: 'Le Monde Map'
             }).addTo(embeddedMap);
 
-            // Add markers to the embedded map
             ${markers.map(marker => `
                 L.marker([${marker.latlng.lat}, ${marker.latlng.lng}])
                     .addTo(embeddedMap)
