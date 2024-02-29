@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+</head>
+<body>
+
+<div id="navbar">
+    <button onclick="openAboutPage()">About</button>
+    <button onclick="openHelpPage()">Help</button>
+    <button onclick="exportAndEmbed()">Export</button>
+</div>
+
+
+<!-- Modal for About Page -->
+<div id="aboutModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeAboutPage()">&times;</span>
+        <p>This is an interactive map application using Leaflet.js.</p>
+        <p><a href="">Image of map</a></p>
+        <!-- Add more about information here -->
+    </div>
+</div>
+
+<!-- Modal for Help Page -->
+<div id="helpModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeHelpPage()">&times;</span>
+        <p>Help information goes here.</p>
+        <!-- Add more help information here -->
+    </div>
+</div>
+
+<div id="map"></div>
+
+<button id="addPinButton">Add Pin</button>
+
+<script src="script.js"></script>
+</body>
+</html>
