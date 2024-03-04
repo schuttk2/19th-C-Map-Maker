@@ -9,7 +9,7 @@ L.imageOverlay(imageUrl, imageBounds).addTo(map);
 L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6IjZjNmRjNzk3ZmE2MTcwOTEwMGY0MzU3YjUzOWFmNWZhIn0.Y8bhBaUMqFiPrDRW9hieoQ', {
     maxZoom: 18,
     attribution: 'Le Monde, principales decouvertes ' +
-        '<a href="https://www.davidrumsey.com/luna/servlet/detail/RUMSEY~8~1~22005~700037:Le-Monde%2C-principales-decouvertes-?sort=Pub_List_No_InitialSort%2CPub_Date%2CPub_List_No%2CSeries_No&qvq=q:Le%20Monde%2C%20principales%20decouvertes;sort:Pub_List_No_InitialSort%2CPub_Date%2CPub_List_No%2CSeries_No;lc:RUMSEY~8~1&mi=0&trs=1#">David Rumsey Map Collection</a>, ',
+        '<a href="https://www.davidrumsey.com/luna/servlet/detail/RUMSEY~8~1~22005~700037:Le-Monde%2C-principales-decouvertes-?sort=Pub_List_No_InitialSort%2CPub_Date%2CPub_List_No%2CSeries_No&qvq=q:Le%20Monde%2C%20principales%20decouvertes;sort:Pub_List_No_InitialSort%2CPub_Date%2CPub_List_No%2CSeries_No;lc:RUMSEY~8~1&mi=0&trs=1#">David Rumsey Map Collection</a>',
     id: 'le-monde'
 }).addTo(map);
 
@@ -57,26 +57,15 @@ function exportAndEmbed() {
 }
 
 function openEmbedCodeModal(embedCode) {
-    const modal = document.createElement('div');
-    modal.id = 'embedCodeModal';
-    modal.classList.add('modal');
-    modal.innerHTML = `
-        <div class="modal-content">
-            <span class="close" onclick="closeEmbedCodeModal()">&times;</span>
-            <textarea id="embedCodeTextarea" readonly>${embedCode}</textarea>
-            <button onclick="copyEmbedCode()">Copy Code</button>
-        </div>    
-    `;
-    document.body.appendChild(modal);
-
+    const textarea = document.getElementById('embedCodeTextarea');
+    textarea.value = embedCode;
+    const modal = document.getElementById('embedCodeModal');
     modal.style.display = 'block';
 }
 
 function closeEmbedCodeModal(){
     const modal = document.getElementById('embedCodeModal');
-    if(modal){
-        document.body.removeChild(modal);
-    }
+    modal.style.display = 'none';
 }
 
 function copyEmbedCode(){
@@ -123,16 +112,27 @@ function generateEmbedCode(mapState){
     return embedCode;
 }
 
-// Example: Add a button to dynamically add a pin to the map
-document.getElementById('addPinButton').addEventListener('click', function () {
-    alert('Click on the map to add a pin.');
+function addPin(){
+    alert('Click where you would like the pin to be on the map');
     map.on('click', function (e) {
-        const title = prompt('Enter the title for the pin:');
-        const description = prompt('Enter the description for the pin:');
+        const titleInput = document.getElementById('pinTitle');
+        const descriptionInput = document.getElementById('pinDescription');
+
+        const title = titleInput.value.trim();
+        const description = descriptionInput.value.trim();
+
+        if(!title){
+            alert('Please enter a title for this pin.');
+            return;
+        }
 
         const newMarker = L.marker(e.latlng).addTo(map);
         newMarker.bindPopup(`<b>${title}</b><br>${description}`).openPopup();
-
+        
+        titleInput.value = '';
+        descriptionInput.value = '';
+        
         map.off('click');
-    });
-});
+
+    })
+}

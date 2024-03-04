@@ -9,10 +9,19 @@
 </head>
 <body>
 
-<div id="navbar">
-    <button onclick="openAboutPage()">About</button>
-    <button onclick="openHelpPage()">Help</button>
+<div id="sidebar">
+    <div id="navbar">
+        <button onclick="openAboutPage()">About</button>
+        <button onclick="openHelpPage()">Help</button>
+    </div>
     <button onclick="exportAndEmbed()">Export</button>
+    <div id="addPinForm">
+        <label for="pinTitle">Title</label>
+        <input type="text" id="pinTitle">
+        <label for="pinDescription">Description</label>
+        <input type="text" id="pinDescription">
+        <button onclick="addPin()">Add Pin</button>
+    </div>
 </div>
 
 
@@ -35,9 +44,15 @@
     </div>
 </div>
 
-<div id="map"></div>
+<div id="embedCodeModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeEmbedCodeModal()">&times;</span>
+        <textarea id="embedCodeTextarea" readonly></textarea>
+        <button onclick="copyEmbedCode()">Copy Code</button>
+    </div>
+</div>
 
-<button id="addPinButton">Add Pin</button>
+<div id="map"></div>
 
 <script src="script.js"></script>
 </body>
