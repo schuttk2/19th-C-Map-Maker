@@ -5,16 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.contextmenu/dist/leaflet.contextmenu.min.css" />
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet.contextmenu/dist/leaflet.contextmenu.min.js"></script>
     <title>Historical Map Maker</title>
 </head>
 <body>
 
 <div id="sidebar">
     <div id="navbar">
-        <button onclick="openAboutPage()">About</button>
-        <button onclick="openHelpPage()">Help</button>
-        <button onclick="exportAndEmbed()">Export</button>
+        <button id="navButton" onclick="openAboutPage()">About</button>
+        <button id="navButton" onclick="openHelpPage()">Help</button>
+        <button id="navButton" onclick="exportAndEmbed()">Export</button>
     </div>
     
     <br>
@@ -29,15 +31,16 @@
         
         <div id="colorCheckboxGroup">
             <label>Choose Color:</label>
-            <br>
-            <input type="checkbox" id="blackCheckbox" value="black">
-            <label for="blackCheckbox">Black</label>
-            <br>
-            <input type="checkbox" id="orangeCheckbox" value="orange">
-            <label for="orangeCheckbox">Orange</label>
-            <br>
-            <input type="checkbox" id="redCheckbox" value="red">
-            <label for="redCheckbox">Red</label>
+            <div class="radio-group">
+                <input type="radio" id="blackRadio" name="colorRadio" value="black">
+                <label for="blackRadio" class="radio-label black-label">Black</label>
+                <br>
+                <input type="radio" id="orangeRadio" name="colorRadio" value="orange">
+                <label for="orangeRadio" class="radio-label orange-label">Orange</label>
+                <br>
+                <input type="radio" id="redRadio" name="colorRadio" value="red">
+                <label for="redRadio" class="radio-label red-label">Red</label>
+            </div>
         </div>
         
         <button onclick="addPin()">Add Pin</button>
@@ -59,7 +62,11 @@
 <div id="helpModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeHelpPage()">&times;</span>
-        <p>Help information goes here.</p>
+        <h2>Help</h2>
+        <h3>Adding pins:</h3>
+        <p>Required fields: Title<br>Optional fields: Description and Color (Color defaults to black if not specified)</p>
+        <h3>Removing pins:</h3>
+        <p>Right click on the pin you want to remove</p>
         <!-- Add more help information here -->
     </div>
 </div>

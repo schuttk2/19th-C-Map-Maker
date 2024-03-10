@@ -96,16 +96,20 @@ function generateEmbedCode(mapState){
         <body>
         <div id="embeddedMap"></div>
         <script>
-            const embeddedMap = L.map('embeddedMap').setView([0, 0], 2);
+            const embeddedMap = L.map('embeddedMap').setView([50, 0], 3);
             const imageUrl = 'https://schuttk2.github.io/darwin-map/1800s-map.svg';
-            const imageBounds = [[-90, -180], [90, 180]];
+            const imageBounds = [[-100, -100], [100, 100]];
             L.imageOverlay(imageUrl, imageBounds).addTo(embeddedMap);
             const baseLayer = L.tileLayer('https://schuttk2.github.io/darwin-map/1800s-map.svg', {
                 attribution: 'Le Monde Map'
             }).addTo(embeddedMap);    
 
             ${markers.map(marker => `
-                L.marker([${marker.latlng.lat}, ${marker.latlng.lng}])
+                L.marker([${marker.latlng.lat}, ${marker.latlng.lng}, {
+                    icon: L.icon({
+                        icon: 'https://schuttk2.github.io/darwin-map/Red_Icon.png'
+                    })
+                }])
                     .addTo(embeddedMap)
                     .bindPopup('${marker.title}');
             `).join('\n')}
@@ -162,8 +166,13 @@ function addPin(){
 
             const newMarker = L.marker(e.latlng, {
                 icon: markerIcon
-            }).addTo(map);
+            });
+            map.addLayer(newMarker);
             newMarker.bindPopup(`<b>${title}</b><br>${description}`).openPopup();
+    
+            newMarker.on('contextmenu', function(e){
+                map.removeLayer(newMarker);
+            });
         }else if(color === 'orange'){
             const markerIcon = L.icon({
                 iconUrl: `Orange_Icon.png`,
@@ -174,8 +183,13 @@ function addPin(){
 
             const newMarker = L.marker(e.latlng, {
                 icon: markerIcon
-            }).addTo(map);
+            });
+            map.addLayer(newMarker);
             newMarker.bindPopup(`<b>${title}</b><br>${description}`).openPopup();
+    
+            newMarker.on('contextmenu', function(e){
+                map.removeLayer(newMarker);
+            });
         }else{
             const markerIcon = L.icon({
                 iconUrl: `Black_Icon.png`,
@@ -186,8 +200,13 @@ function addPin(){
 
             const newMarker = L.marker(e.latlng, {
                 icon: markerIcon
-            }).addTo(map);
+            });
+            map.addLayer(newMarker);
             newMarker.bindPopup(`<b>${title}</b><br>${description}`).openPopup();
+    
+            newMarker.on('contextmenu', function(e){
+                map.removeLayer(newMarker);
+            });
         }
         
         titleInput.value = '';
