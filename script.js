@@ -1,9 +1,15 @@
 // Leaflet map setup
-const map = L.map('map').setView([0, 0], 2); // Centered at (0,0) with zoom level 2
+const map = L.map('map', {
+    center: [0, 0],
+    zoom: 3
+});
 
 // Add a base layer (using a hard-coded image for demonstration)
-const imageUrl = 'https://schuttk2.github.io/darwin-map/1800s-map.jpg';
-const imageBounds = [[-90, -180], [90, 180]];
+const imageUrl = '1800s-map.svg',
+    imageBounds = [
+        [-100, -100],
+        [100, 100]
+    ];
 L.imageOverlay(imageUrl, imageBounds).addTo(map);
 
 L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6IjZjNmRjNzk3ZmE2MTcwOTEwMGY0MzU3YjUzOWFmNWZhIn0.Y8bhBaUMqFiPrDRW9hieoQ', {
@@ -91,10 +97,10 @@ function generateEmbedCode(mapState){
         <div id="embeddedMap"></div>
         <script>
             const embeddedMap = L.map('embeddedMap').setView([0, 0], 2);
-            const imageUrl = 'https://schuttk2.github.io/darwin-map/1800s-map.jpg';
+            const imageUrl = 'https://schuttk2.github.io/darwin-map/1800s-map.svg';
             const imageBounds = [[-90, -180], [90, 180]];
             L.imageOverlay(imageUrl, imageBounds).addTo(embeddedMap);
-            const baseLayer = L.tileLayer('https://schuttk2.github.io/darwin-map/1800s-map.jpg', {
+            const baseLayer = L.tileLayer('https://schuttk2.github.io/darwin-map/1800s-map.svg', {
                 attribution: 'Le Monde Map'
             }).addTo(embeddedMap);    
 
@@ -121,20 +127,74 @@ function addPin(){
     map.on('click', function (e) {
         const titleInput = document.getElementById('pinTitle');
         const descriptionInput = document.getElementById('pinDescription');
+        const colorCheckboxGroup = document.getElementById('colorCheckboxGroup');
 
         const title = titleInput.value.trim();
         const description = descriptionInput.value.trim();
+        let color;
+
+        const checkboxes = colorCheckboxGroup.querySelectorAll('input[type="checkbox"]:checked');
+        if(checkboxes.length > 0){
+            color = checkboxes[0].value;
+        }else{
+            color = 'black';
+        }
 
         if(!title){
             alert('Please enter a title for this pin.');
             return;
         }
 
-        const newMarker = L.marker(e.latlng).addTo(map);
-        newMarker.bindPopup(`<b>${title}</b><br>${description}`).openPopup();
+        const markerIcon = L.icon({
+            iconUrl: `Black_Icon.png`,
+            iconSize: [31, 46], // size of the icon
+            iconAnchor: [0, 46], // point of the icon which will correspond to marker's location
+            popupAnchor: [0, -45] // point from which the popup should open relative to the iconAnchor
+        });
+
+        if(color === 'red'){
+            const markerIcon = L.icon({
+                iconUrl: `Red_Icon.png`,
+                iconSize: [31, 46], // size of the icon
+                iconAnchor: [0, 46], // point of the icon which will correspond to marker's location
+                popupAnchor: [0, -45] // point from which the popup should open relative to the iconAnchor
+            });
+
+            const newMarker = L.marker(e.latlng, {
+                icon: markerIcon
+            }).addTo(map);
+            newMarker.bindPopup(`<b>${title}</b><br>${description}`).openPopup();
+        }else if(color === 'orange'){
+            const markerIcon = L.icon({
+                iconUrl: `Orange_Icon.png`,
+                iconSize: [31, 46], // size of the icon
+                iconAnchor: [0, 46], // point of the icon which will correspond to marker's location
+                popupAnchor: [0, -45] // point from which the popup should open relative to the iconAnchor
+            });
+
+            const newMarker = L.marker(e.latlng, {
+                icon: markerIcon
+            }).addTo(map);
+            newMarker.bindPopup(`<b>${title}</b><br>${description}`).openPopup();
+        }else{
+            const markerIcon = L.icon({
+                iconUrl: `Black_Icon.png`,
+                iconSize: [31, 46], // size of the icon
+                iconAnchor: [0, 46], // point of the icon which will correspond to marker's location
+                popupAnchor: [0, -45] // point from which the popup should open relative to the iconAnchor
+            });
+
+            const newMarker = L.marker(e.latlng, {
+                icon: markerIcon
+            }).addTo(map);
+            newMarker.bindPopup(`<b>${title}</b><br>${description}`).openPopup();
+        }
         
         titleInput.value = '';
         descriptionInput.value = '';
+        checkboxes.forEach(checkbox => {
+            checkbox.checked = false;
+        });
         
         map.off('click');
 

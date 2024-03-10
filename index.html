@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <title>Historical Map Maker</title>
 </head>
 <body>
 
@@ -13,13 +14,32 @@
     <div id="navbar">
         <button onclick="openAboutPage()">About</button>
         <button onclick="openHelpPage()">Help</button>
+        <button onclick="exportAndEmbed()">Export</button>
     </div>
-    <button onclick="exportAndEmbed()">Export</button>
+    
+    <br>
     <div id="addPinForm">
-        <label for="pinTitle">Title</label>
+        <label for="pinTitle">Title:</label>
+        <br>
         <input type="text" id="pinTitle">
-        <label for="pinDescription">Description</label>
+        
+        <label for="pinDescription">Description:</label>
+        <br>
         <input type="text" id="pinDescription">
+        
+        <div id="colorCheckboxGroup">
+            <label>Choose Color:</label>
+            <br>
+            <input type="checkbox" id="blackCheckbox" value="black">
+            <label for="blackCheckbox">Black</label>
+            <br>
+            <input type="checkbox" id="orangeCheckbox" value="orange">
+            <label for="orangeCheckbox">Orange</label>
+            <br>
+            <input type="checkbox" id="redCheckbox" value="red">
+            <label for="redCheckbox">Red</label>
+        </div>
+        
         <button onclick="addPin()">Add Pin</button>
     </div>
 </div>
