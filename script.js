@@ -96,6 +96,7 @@ function generateEmbedCode(mapState){
         <body>
         <div id="embeddedMap"></div>
         <script>
+            // edit setView([center], zoom) if necessary
             const embeddedMap = L.map('embeddedMap').setView([50, 0], 3);
             const imageUrl = 'https://schuttk2.github.io/darwin-map/1800s-map.svg';
             const imageBounds = [[-100, -100], [100, 100]];
@@ -137,9 +138,9 @@ function addPin(){
         const description = descriptionInput.value.trim();
         let color;
 
-        const checkboxes = colorCheckboxGroup.querySelectorAll('input[type="checkbox"]:checked');
-        if(checkboxes.length > 0){
-            color = checkboxes[0].value;
+        const radio = colorCheckboxGroup.querySelectorAll('input[type="radio"]:checked');
+        if(radio.length > 0){
+            color = radio[0].value;
         }else{
             color = 'black';
         }
@@ -191,13 +192,6 @@ function addPin(){
                 map.removeLayer(newMarker);
             });
         }else{
-            const markerIcon = L.icon({
-                iconUrl: `Black_Icon.png`,
-                iconSize: [31, 46], // size of the icon
-                iconAnchor: [0, 46], // point of the icon which will correspond to marker's location
-                popupAnchor: [0, -45] // point from which the popup should open relative to the iconAnchor
-            });
-
             const newMarker = L.marker(e.latlng, {
                 icon: markerIcon
             });
@@ -211,8 +205,8 @@ function addPin(){
         
         titleInput.value = '';
         descriptionInput.value = '';
-        checkboxes.forEach(checkbox => {
-            checkbox.checked = false;
+        radio.forEach(radio => {
+            radio.checked = false;
         });
         
         map.off('click');

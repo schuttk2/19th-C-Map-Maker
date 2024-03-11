@@ -13,6 +13,8 @@
 <body>
 
 <div id="sidebar">
+    <h1>19th Century Map Maker</h1>
+    
     <div id="navbar">
         <button id="navButton" onclick="openAboutPage()">About</button>
         <button id="navButton" onclick="openHelpPage()">Help</button>
@@ -52,7 +54,14 @@
 <div id="aboutModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeAboutPage()">&times;</span>
-        <p>This is an interactive map application using Leaflet.js.</p>
+        <h2>About</h2>
+        <p>This is an interactive map web application created by Kiley Schutte. The site uses the 
+            <a href="https://leafletjs.com/" target="_blank">Leaflet JavaScript library</a>. The purpose of this site is to provide 
+            an option for people wanting to create custom historical maps. The background map tile is 
+            <i>Le Monde, principales decouvertes</i> (1862), by F. A. Garnier (1803-1863). The map is available in 
+            the <a href="https://www.davidrumsey.com/luna/servlet/detail/RUMSEY~8~1~22005~700037:Le-Monde%2C-principales-decouvertes-?sort=Pub_List_No_InitialSort%2CPub_Date%2CPub_List_No%2CSeries_No&qvq=q:Le%20Monde%2C%20principales%20decouvertes;sort:Pub_List_No_InitialSort%2CPub_Date%2CPub_List_No%2CSeries_No;lc:RUMSEY~8~1&mi=0&trs=1#" 
+            target="_blank">David Rumsey Map Collection</a>.
+        </p>
         <p><a href="image.html">Image of map</a></p>
         <!-- Add more about information here -->
     </div>
@@ -67,15 +76,19 @@
         <p>Required fields: Title<br>Optional fields: Description and Color (Color defaults to black if not specified)</p>
         <h3>Removing pins:</h3>
         <p>Right click on the pin you want to remove</p>
+        <h3>Exporting and Embedding</h3>
+        <p>Copy the code under "Export" and paste it as an embed in another site. If needed, edit the embed code (i.e. change the center point and zoom level)</p>
         <!-- Add more help information here -->
     </div>
 </div>
 
 <div id="embedCodeModal" class="modal">
-    <div class="modal-content">
+    <div id="embedDiv" class="modal-content">
         <span class="close" onclick="closeEmbedCodeModal()">&times;</span>
+        <h2>Export</h2>
+        <p>Copy the following code to embed into another site:</p>
         <textarea id="embedCodeTextarea" readonly></textarea>
-        <button onclick="copyEmbedCode()">Copy Code</button>
+        <button id="copyButton" onclick="copyEmbedCode()">Copy Code</button>
     </div>
 </div>
 

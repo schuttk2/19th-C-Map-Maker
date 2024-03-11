@@ -105,11 +105,18 @@ input[type=text] {
 }
 
 #embedCodeModal button {
+   background-color: #6e5757;
    display: block;
    width: 100%;
-   padding: 10px;
-   background-color: #007bff;
+   margin-bottom: 5px;
    color: white;
+   padding: 10px;
+   /*text-decoration: none;
+   font-size: 16px;*/
    border: none;
    cursor: pointer;
+}
+
+a {
+   color: #6e5757;
 }
