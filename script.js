@@ -17,7 +17,7 @@ L.imageOverlay(imageUrl, imageBounds).addTo(map);
 L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6IjZjNmRjNzk3ZmE2MTcwOTEwMGY0MzU3YjUzOWFmNWZhIn0.Y8bhBaUMqFiPrDRW9hieoQ', {
     maxZoom: 18,
     attribution: 'Le Monde, principales decouvertes ' +
-        '<a href="https://www.davidrumsey.com/luna/servlet/detail/RUMSEY~8~1~22005~700037:Le-Monde%2C-principales-decouvertes-?sort=Pub_List_No_InitialSort%2CPub_Date%2CPub_List_No%2CSeries_No&qvq=q:Le%20Monde%2C%20principales%20decouvertes;sort:Pub_List_No_InitialSort%2CPub_Date%2CPub_List_No%2CSeries_No;lc:RUMSEY~8~1&mi=0&trs=1#" target="_blank">David Rumsey Map Collection</a>',
+        '<a href="https://tinyurl.com/hcjcp2cp" target="_blank">David Rumsey Map Collection</a>',
     id: 'le-monde'
 }).addTo(map);
 
@@ -99,19 +99,18 @@ function generateEmbedCode(mapState){
         <div id="embeddedMap"></div>
         <script>
             // edit setView([center], zoom) if necessary
-            const embeddedMap = L.map('embeddedMap').setView([50, 0], 3);
+            const embeddedMap = L.map('embeddedMap').setView([0, 0], 3);
             const imageUrl = 'https://schuttk2.github.io/darwin-map/1800s-map.svg';
             const imageBounds = [[-100, -100], [100, 100]];
             L.imageOverlay(imageUrl, imageBounds).addTo(embeddedMap);
             const baseLayer = L.tileLayer('https://schuttk2.github.io/darwin-map/1800s-map.svg', {
-                attribution: 'Le Monde Map'
+                attribution: 'Le Monde ' +
+                '<a href="https://tinyurl.com/hcjcp2cp" target="_blank">David Rumsey Map Collection</a>'
             }).addTo(embeddedMap);    
 
             ${markers.map(marker => `
                 L.marker([${marker.latlng.lat}, ${marker.latlng.lng}, {
-                    icon: L.icon({
-                        icon: 'https://schuttk2.github.io/darwin-map/Red_Icon.png'
-                    })
+                    icon: 'https://schuttk2.github.io/darwin-map/Red_Icon.png'
                 }])
                     .addTo(embeddedMap)
                     .bindPopup('${marker.title}');
@@ -119,7 +118,7 @@ function generateEmbedCode(mapState){
         </script>
         <style>
             #embeddedMap {
-                height: 400px;
+                height: 600px;
             }
         </style>
         </body>
