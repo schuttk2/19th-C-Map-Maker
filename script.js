@@ -1,3 +1,5 @@
+
+
 // Leaflet map setup
 const map = L.map('map', {
     center: [0, 0],
@@ -212,4 +214,40 @@ function addPin(){
         map.off('click');
 
     })
+}
+
+function insertHyperlink(descriptionInput, latlng) {
+    const selection = getSelectedText();
+
+    if (selection) {
+        const url = prompt('Enter the URL for the hyperlink:');
+        if(url) {
+            const hyperlink = `<a href="${url}" target="_blank">${selection}</a>`;
+            insertTextAtCursor(descriptionInput, hyperlink);
+        }
+    }
+}
+
+function getSelectedText() {
+    if (window.getSelection) {
+        return window.getSelection().toString();
+    } else if (document.selection && document.selection.type != 'Control') {
+        return document.selection.createRange().text;
+    }
+    return '';
+}
+
+// Function to insert text at the current cursor position in an input field
+function insertTextAtCursor(inputField, textToInsert) {
+    const startPos = inputField.selectionStart;
+    const endPos = inputField.selectionEnd;
+    const textBefore = inputField.value.substring(0, startPos);
+    const textAfter = inputField.value.substring(endPos, inputField.value.length);
+
+    inputField.value = textBefore + textToInsert + textAfter;
+
+    // Move the cursor to the end of the inserted text
+    const newCursorPos = startPos + textToInsert.length;
+    inputField.setSelectionRange(newCursorPos, newCursorPos);
+    inputField.focus();
 }
