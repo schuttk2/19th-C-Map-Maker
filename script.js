@@ -90,7 +90,7 @@ function generateEmbedCode(mapState){
                     .bindPopup('${marker.title}');
             `).join('\n')}*/
 
-    return embedCode;
+    //return embedCode;
 }
 
 function addPin(){

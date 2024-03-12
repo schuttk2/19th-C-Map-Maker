@@ -19,6 +19,26 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=p
     id: 'le-monde'
 }).addTo(map);
 
+// Function to open About page modal
+function openAboutPage() {
+    document.getElementById('aboutModal').style.display = 'block';
+}
+
+// Function to close About page modal
+function closeAboutPage() {
+    document.getElementById('aboutModal').style.display = 'none';
+}
+
+// Function to open Help page modal
+function openHelpPage() {
+    document.getElementById('helpModal').style.display = 'block';
+}
+
+// Function to close Help page modal
+function closeHelpPage() {
+    document.getElementById('helpModal').style.display = 'none';
+}
+
 // Function to export and embed map
 function exportAndEmbed() {
     const mapState = {
@@ -42,6 +62,17 @@ function exportAndEmbed() {
     openEmbedCodeModal(embedCode);
 }
 
+function openEmbedCodeModal(embedCode) {
+    const textarea = document.getElementById('embedCodeTextarea');
+    textarea.value = embedCode;
+    const modal = document.getElementById('embedCodeModal');
+    modal.style.display = 'block';
+}
+
+function closeEmbedCodeModal(){
+    const modal = document.getElementById('embedCodeModal');
+    modal.style.display = 'none';
+}
 
 function copyEmbedCode(){
     const textarea = document.getElementById('embedCodeTextarea');
@@ -51,57 +82,13 @@ function copyEmbedCode(){
 }
 
 function generateEmbedCode(mapState){
-    const { center, zoom, markers } = mapState;
+    //get all of the info on each marker, then somehow get them to view.html
 
-    const embedCode = `
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-            <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-        </head>
-        <body>
-        <div id="embeddedMap"></div>
-        <script>
-            // edit setView([center], zoom) if necessary
-            //const embeddedMap = L.map('embeddedMap').setView([50, 0], 3);
-            const embeddedMap = L.map('embeddedMap', {
-                center: [50, 0],
-                zoom: 3
-            });
-            const imageUrl = 'https://schuttk2.github.io/darwin-map/1800s-map.svg';
-            const imageBounds = [[-100, -100], [100, 100]];
-            L.imageOverlay(imageUrl, imageBounds).addTo(embeddedMap);
-            L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6IjZjNmRjNzk3ZmE2MTcwOTEwMGY0MzU3YjUzOWFmNWZhIn0.Y8bhBaUMqFiPrDRW9hieoQ', {
-                maxZoom: 18,
-                attribution: 'Le Monde ' +
-                    '<a href="https://tinyurl.com/hcjcp2cp" target="_blank">David Rumsey Map Collection</a>',
-                id: 'le-monde'
-            }).addTo(embeddedMap);   
-
-            var colorIcon = L.icon({
-                iconUrl: 'https://schuttk2.github.io/darwin-map/Black_Icon.png',
-                iconSize: [31, 46],
-                iconAnchor: [0, 46],
-                popupAnchor: [0, -45]
-            });
-
-            ${markers.map(marker => `
+    /*${markers.map(marker => `
                 L.marker([${marker.latlng.lat}, ${marker.latlng.lng}], {icon: colorIcon})
                     .addTo(embeddedMap)
                     .bindPopup('${marker.title}');
-            `).join('\n')}
-        </script>
-        <style>
-            #embeddedMap {
-                height: 600px;
-            }
-        </style>
-        </body>
-        </html>
-    `;
+            `).join('\n')}*/
 
     return embedCode;
 }
@@ -149,6 +136,10 @@ function addPin(){
             });
             map.addLayer(newMarker);
             newMarker.bindPopup(`<b>${title}</b><br>${description}`).openPopup();
+    
+            newMarker.on('contextmenu', function(e){
+                map.removeLayer(newMarker);
+            });
         }else if(color === 'orange'){
             const markerIcon = L.icon({
                 iconUrl: `Orange_Icon.png`,
@@ -162,12 +153,20 @@ function addPin(){
             });
             map.addLayer(newMarker);
             newMarker.bindPopup(`<b>${title}</b><br>${description}`).openPopup();
+    
+            newMarker.on('contextmenu', function(e){
+                map.removeLayer(newMarker);
+            });
         }else{
             const newMarker = L.marker(e.latlng, {
                 icon: markerIcon
             });
             map.addLayer(newMarker);
             newMarker.bindPopup(`<b>${title}</b><br>${description}`).openPopup();
+    
+            newMarker.on('contextmenu', function(e){
+                map.removeLayer(newMarker);
+            });
         }
         
         titleInput.value = '';
@@ -179,4 +178,40 @@ function addPin(){
         map.off('click');
 
     })
+}
+
+function insertHyperlink(descriptionInput, latlng) {
+    const selection = getSelectedText();
+
+    if (selection) {
+        const url = prompt('Enter the URL for the hyperlink:');
+        if(url) {
+            const hyperlink = `<a href="${url}" target="_blank">${selection}</a>`;
+            insertTextAtCursor(descriptionInput, hyperlink);
+        }
+    }
+}
+
+function getSelectedText() {
+    if (window.getSelection) {
+        return window.getSelection().toString();
+    } else if (document.selection && document.selection.type != 'Control') {
+        return document.selection.createRange().text;
+    }
+    return '';
+}
+
+// Function to insert text at the current cursor position in an input field
+function insertTextAtCursor(inputField, textToInsert) {
+    const startPos = inputField.selectionStart;
+    const endPos = inputField.selectionEnd;
+    const textBefore = inputField.value.substring(0, startPos);
+    const textAfter = inputField.value.substring(endPos, inputField.value.length);
+
+    inputField.value = textBefore + textToInsert + textAfter;
+
+    // Move the cursor to the end of the inserted text
+    const newCursorPos = startPos + textToInsert.length;
+    inputField.setSelectionRange(newCursorPos, newCursorPos);
+    inputField.focus();
 }
