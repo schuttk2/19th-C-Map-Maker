@@ -1,3 +1,4 @@
+
 // Leaflet map setup
 const map = L.map('map', {
     center: [0, 0],
@@ -39,27 +40,25 @@ function closeHelpPage() {
     document.getElementById('helpModal').style.display = 'none';
 }
 
+const markerData = [];
+
 // Function to export and embed map
 function exportAndEmbed() {
-    const mapState = {
-        center: map.getCenter(),
-        zoom: map.getZoom(),
-        markers: []
-    };
 
+    // Iterate over markers and add properties to mapState
     map.eachLayer(layer => {
-        if(layer instanceof L.Marker){
+        if (layer instanceof L.Marker) {
             const markerInfo = {
                 latlng: layer.getLatLng(),
-                title: layer.getPopup().getContent()
+                title: layer.getPopup().getContent(),
+                color: layer.options.icon.options.markerColor,
             };
-            mapState.markers.push(markerInfo);
+            markerData.push(markerInfo);
         }
     });
 
-    const embedCode = generateEmbedCode(mapState);
-
-    openEmbedCodeModal(embedCode);
+    const queryParams = encodeURIComponent(JSON.stringify(markerData));
+    window.location.href = `viewing.html?markers=${queryParams}`;
 }
 
 function openEmbedCodeModal(embedCode) {
@@ -67,6 +66,7 @@ function openEmbedCodeModal(embedCode) {
     textarea.value = embedCode;
     const modal = document.getElementById('embedCodeModal');
     modal.style.display = 'block';
+    
 }
 
 function closeEmbedCodeModal(){
@@ -140,6 +140,7 @@ function addPin(){
             newMarker.on('contextmenu', function(e){
                 map.removeLayer(newMarker);
             });
+            markerData.push(newMarker);
         }else if(color === 'orange'){
             const markerIcon = L.icon({
                 iconUrl: `Orange_Icon.png`,
@@ -157,6 +158,7 @@ function addPin(){
             newMarker.on('contextmenu', function(e){
                 map.removeLayer(newMarker);
             });
+            markerData.push(newMarker);
         }else{
             const newMarker = L.marker(e.latlng, {
                 icon: markerIcon
@@ -167,6 +169,7 @@ function addPin(){
             newMarker.on('contextmenu', function(e){
                 map.removeLayer(newMarker);
             });
+            markerData.push(newMarker);
         }
         
         titleInput.value = '';
@@ -178,40 +181,4 @@ function addPin(){
         map.off('click');
 
     })
-}
-
-function insertHyperlink(descriptionInput, latlng) {
-    const selection = getSelectedText();
-
-    if (selection) {
-        const url = prompt('Enter the URL for the hyperlink:');
-        if(url) {
-            const hyperlink = `<a href="${url}" target="_blank">${selection}</a>`;
-            insertTextAtCursor(descriptionInput, hyperlink);
-        }
-    }
-}
-
-function getSelectedText() {
-    if (window.getSelection) {
-        return window.getSelection().toString();
-    } else if (document.selection && document.selection.type != 'Control') {
-        return document.selection.createRange().text;
-    }
-    return '';
-}
-
-// Function to insert text at the current cursor position in an input field
-function insertTextAtCursor(inputField, textToInsert) {
-    const startPos = inputField.selectionStart;
-    const endPos = inputField.selectionEnd;
-    const textBefore = inputField.value.substring(0, startPos);
-    const textAfter = inputField.value.substring(endPos, inputField.value.length);
-
-    inputField.value = textBefore + textToInsert + textAfter;
-
-    // Move the cursor to the end of the inserted text
-    const newCursorPos = startPos + textToInsert.length;
-    inputField.setSelectionRange(newCursorPos, newCursorPos);
-    inputField.focus();
 }
