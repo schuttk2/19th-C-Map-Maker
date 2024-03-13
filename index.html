@@ -8,18 +8,16 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet.contextmenu/dist/leaflet.contextmenu.min.css" />
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="https://unpkg.com/leaflet.contextmenu/dist/leaflet.contextmenu.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/dist/lodash.min.js"></script>
     <title>Historical Map Maker</title>
 </head>
 <body>
-
 <div id="sidebar">
     <h1>19th Century Map Maker</h1>
     
     <div id="navbar">
         <button id="navButton" onclick="openAboutPage()">About</button>
         <button id="navButton" onclick="openHelpPage()">Help</button>
-        <button id="navButton" onclick="exportAndEmbed()">View and Export</button>
+        <button id="navButton" onclick="exportAndEmbed()">Export</button>
     </div>
     
     <br>
@@ -49,8 +47,6 @@
         <button onclick="addPin()">Add Pin</button>
     </div>
 </div>
-
-
 <!-- Modal for About Page -->
 <div id="aboutModal" class="modal">
     <div class="modal-content">
@@ -67,7 +63,6 @@
         <!-- Add more about information here -->
     </div>
 </div>
-
 <!-- Modal for Help Page -->
 <div id="helpModal" class="modal">
     <div class="modal-content">
@@ -75,12 +70,12 @@
         <h2>Help</h2>
         <h3>Adding pins:</h3>
         <p>Required fields: Title<br>Optional fields: Description and Color (Color defaults to black if not specified)</p>
-        
+
         <h4>Enhanced text:</h4>
         <p>To insert a link, wrap it with an anchor tag.<br>Ex: <code>Check out &lt;a href="https://www.linkedin.com/in/kileyschutte/"&gt;
             Kiley's LinkedIn&lt;/a&gt;!</code><br>&nbsp;==>Check out <a href="https://www.linkedin.com/in/kileyschutte/">Kiley's LinkedIn</a>!
         </p>
-        
+
         <h3>Removing pins:</h3>
         <p>Right click on the pin you want to remove</p>
         <h3>Exporting and Embedding</h3>
@@ -88,20 +83,16 @@
         <!-- Add more help information here -->
     </div>
 </div>
-
 <div id="embedCodeModal" class="modal">
     <div id="embedDiv" class="modal-content">
         <span class="close" onclick="closeEmbedCodeModal()">&times;</span>
         <h2>Export</h2>
-        <p><a href="view.html">View Page</a></p>
         <p>Copy the following code to embed into another site:</p>
         <textarea id="embedCodeTextarea" readonly></textarea>
         <button id="copyButton" onclick="copyEmbedCode()">Copy Code</button>
     </div>
 </div>
-
 <div id="map"></div>
-
 <script src="script.js"></script>
 </body>
 </html>
