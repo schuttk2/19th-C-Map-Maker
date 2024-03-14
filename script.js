@@ -63,7 +63,6 @@ function exportAndEmbed() {
    });
    const embedCode = generateEmbedCode(mapState);
    openEmbedCodeModal(embedCode);
-   displayMarkersList(mapState.markers);
 }
 
 // Function to display markers list
@@ -102,10 +101,50 @@ function generateEmbedCode(mapState){
     const { center, zoom, markers } = mapState;
     const embedCode = `
         ${markers.map(marker => `
-            L.marker([${marker.latlng.lat}, ${marker.latlng.lng}]).addTo(viewMap).bindPopup('${marker.title}').openPopup();
+            L.marker([${marker.latlng.lat}, ${marker.latlng.lng}]).addTo(map).bindPopup('${marker.title}').openPopup();
         `).join('\n')}
     `;
-    return embedCode;
+
+   /* const embedCode = `
+       <!DOCTYPE html>
+       <html lang="en">
+       <head>
+           <meta charset="UTF-8">
+           <meta name="viewport" content="width=device-width, initial-scale=1.0">
+           <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+           <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+       </head>
+       <body>
+       <div id="embeddedMap"></div>
+       <script>
+           // edit setView([center], zoom) if necessary
+           const embeddedMap = L.map('embeddedMap').setView([50, 0], 3);
+           const imageUrl = 'https://schuttk2.github.io/darwin-map/1800s-map.svg';
+           const imageBounds = [[-100, -100], [100, 100]];
+           L.imageOverlay(imageUrl, imageBounds).addTo(embeddedMap);
+           const baseLayer = L.tileLayer('https://schuttk2.github.io/darwin-map/1800s-map.svg', {
+                maxZoom: 18,
+                minZoom: 3,
+                attribution: 'Le Monde Map'
+           }).addTo(embeddedMap);    
+
+           
+
+           ${markers.map(marker => `
+                L.marker([${marker.latlng.lat}, ${marker.latlng.lng}]).addTo(embeddedMap).bindPopup('${marker.title}').openPopup();
+           `).join('\n')}
+
+       </script>
+       <style>
+           #embeddedMap {
+               height: 600px;
+           }
+       </style>
+       </body>
+       </html>
+   `; */
+
+   return embedCode;
 }
 function addPin(){
    alert('Click where you would like the pin to be on the map');

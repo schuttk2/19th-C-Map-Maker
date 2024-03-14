@@ -30,12 +30,6 @@ The Historical Map Viewer is a web application that allows users to view and int
 5. Click on any pin to view detailed information associated with it.
 6. To embed the map with added pins in another website, use the provided export functionality.
 
-## Downloads
-**NPM**
-````
-	npm install --save leaflet.bigimage
-````
-
 ## Project Structure
 
 - `index.html`: Home page for adding pins to the map.
