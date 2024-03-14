@@ -102,7 +102,7 @@ function generateEmbedCode(mapState){
     const { center, zoom, markers } = mapState;
     const embedCode = `
         ${markers.map(marker => `
-            L.marker([${marker.latlng.lat}, ${marker.latlng.lng}]).addTo(embeddedMap).bindPopup('${marker.title}').openPopup();
+            L.marker([${marker.latlng.lat}, ${marker.latlng.lng}]).addTo(viewMap).bindPopup('${marker.title}').openPopup();
         `).join('\n')}
     `;
     return embedCode;

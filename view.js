@@ -1,6 +1,6 @@
 
 // Leaflet map setup
-const map = L.map('map').setView([0, 0], 3);
+const map = L.map('map').setView([50, 0], 3);
 
 // Add a base layer (using a hard-coded image for demonstration)
 const imageUrl = '1800s-map.svg',
@@ -17,4 +17,7 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=p
     id: 'le-monde'
 }).addTo(map);
         
-L.marker([11.350796722383672, -44.84169809679817]).addTo(map).bindPopup('<b>Test</b><br>This is a test').openPopup();
+L.marker([11.350796722383672, -44.84169809679817]).addTo(map).bindPopup('<b>Test</b><br>This is a test').on('click', function () {
+    map.setView(marker.latlng);
+});;
+
