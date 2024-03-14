@@ -1,8 +1,16 @@
+
+const markers = [];
+
 // Leaflet map setup
 const map = L.map('map', {
-   center: [0, 0],
-   zoom: 3
+    center: [0, 0],
+    zoom: 3
+ });
+
+markers.forEach(marker => {
+    L.marker(marker.latlng).addTo(map).bindPopup(`<b>${marker.title}</b><br>${marker.description}`);
 });
+
 // Add a base layer (using a hard-coded image for demonstration)
 const imageUrl = '1800s-map.svg',
    imageBounds = [
@@ -43,7 +51,7 @@ function exportAndEmbed() {
        if(layer instanceof L.Marker){
            const markerInfo = {
                latlng: layer.getLatLng(),
-               title: layer.getPopup().getContent()
+               title: layer.getPopup().getContent(),
            };
            mapState.markers.push(markerInfo);
        }
@@ -67,6 +75,7 @@ function copyEmbedCode(){
    document.execCommand('copy');
    alert('Embed code copied to clipboard!');
 }
+
 function generateEmbedCode(mapState){
    const { center, zoom, markers } = mapState;
    const embedCode = `
@@ -90,18 +99,17 @@ function generateEmbedCode(mapState){
                attribution: 'Le Monde Map'
            }).addTo(embeddedMap);    
            ${markers.map(marker => `
-               L.marker([${marker.latlng.lat}, ${marker.latlng.lng}, {
-                   icon: L.icon({
-                       icon: 'https://schuttk2.github.io/darwin-map/Red_Icon.png'
-                   })
-               }])
-                   .addTo(embeddedMap)
-                   .bindPopup('${marker.title}');
+                L.marker([${marker.latlng.lat}, ${marker.latlng.lng}], {
+                    icon: L.icon({
+                        icon: '${marker.color}'
+                    })
+                }).addTo(embeddedMap);
+                L.marker.bindPopup('${marker.title}');
            `).join('\n')}
+
        </script>
        <style>
            #embeddedMap {
-               //edit this to be desired height
                height: 600px;
            }
        </style>
@@ -123,21 +131,21 @@ function addPin(){
        if(radio.length > 0){
            color = radio[0].value;
        }else{
-           color = 'black';
+           color = 'https://schuttk2.github.io/darwin-map/Black_Icon.png';
        }
        if(!title){
            alert('Please enter a title for this pin.');
            return;
        }
        const markerIcon = L.icon({
-           iconUrl: `Black_Icon.png`,
+           iconUrl: `https://schuttk2.github.io/darwin-map/Black_Icon.png`,
            iconSize: [31, 46], // size of the icon
            iconAnchor: [0, 46], // point of the icon which will correspond to marker's location
            popupAnchor: [0, -45] // point from which the popup should open relative to the iconAnchor
        });
-       if(color === 'red'){
+       if(color === 'https://schuttk2.github.io/darwin-map/Red_Icon.png'){
            const markerIcon = L.icon({
-               iconUrl: `Red_Icon.png`,
+               iconUrl: `https://schuttk2.github.io/darwin-map/Red_Icon.png`,
                iconSize: [31, 46], // size of the icon
                iconAnchor: [0, 46], // point of the icon which will correspond to marker's location
                popupAnchor: [0, -45] // point from which the popup should open relative to the iconAnchor
@@ -151,9 +159,19 @@ function addPin(){
            newMarker.on('contextmenu', function(e){
                map.removeLayer(newMarker);
            });
-       }else if(color === 'orange'){
+
+           // Store marker information including color
+           const markerInfo = {
+                latlng: newMarker.getLatLng(),
+                title: newMarker.getPopup().getContent(),
+                color: color
+            };
+
+            // Add the marker information to the markers array
+            markers.push(markerInfo);
+       }else if(color === 'https://schuttk2.github.io/darwin-map/Orange_Icon.png'){
            const markerIcon = L.icon({
-               iconUrl: `Orange_Icon.png`,
+               iconUrl: `https://schuttk2.github.io/darwin-map/Orange_Icon.png`,
                iconSize: [31, 46], // size of the icon
                iconAnchor: [0, 46], // point of the icon which will correspond to marker's location
                popupAnchor: [0, -45] // point from which the popup should open relative to the iconAnchor
@@ -167,7 +185,23 @@ function addPin(){
            newMarker.on('contextmenu', function(e){
                map.removeLayer(newMarker);
            });
+           // Store marker information including color
+           const markerInfo = {
+            latlng: newMarker.getLatLng(),
+            title: newMarker.getPopup().getContent(),
+            color: color
+            };
+
+            // Add the marker information to the markers array
+            markers.push(markerInfo);
        }else{
+            const markerIcon = L.icon({
+                iconUrl: `https://schuttk2.github.io/darwin-map/Black_Icon.png`,
+                iconSize: [31, 46], // size of the icon
+                iconAnchor: [0, 46], // point of the icon which will correspond to marker's location
+                popupAnchor: [0, -45] // point from which the popup should open relative to the iconAnchor
+            });
+
            const newMarker = L.marker(e.latlng, {
                icon: markerIcon
            });
@@ -177,6 +211,16 @@ function addPin(){
            newMarker.on('contextmenu', function(e){
                map.removeLayer(newMarker);
            });
+
+            // Store marker information including color
+            const markerInfo = {
+                latlng: newMarker.getLatLng(),
+                title: newMarker.getPopup().getContent(),
+                color: color
+            };
+
+            // Add the marker information to the markers array
+            markers.push(markerInfo);
        }
        
        titleInput.value = '';
