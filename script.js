@@ -24,6 +24,9 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=p
        '<a href="https://www.davidrumsey.com/luna/servlet/detail/RUMSEY~8~1~22005~700037:Le-Monde%2C-principales-decouvertes-?sort=Pub_List_No_InitialSort%2CPub_Date%2CPub_List_No%2CSeries_No&qvq=q:Le%20Monde%2C%20principales%20decouvertes;sort:Pub_List_No_InitialSort%2CPub_Date%2CPub_List_No%2CSeries_No;lc:RUMSEY~8~1&mi=0&trs=1#" target="_blank">David Rumsey Map Collection</a>',
    id: 'le-monde'
 }).addTo(map);
+
+L.control.bigImage({position: 'topright'}).addTo(map);
+
 // Function to open About page modal
 function openAboutPage() {
    document.getElementById('aboutModal').style.display = 'block';
@@ -268,4 +271,15 @@ function insertTextAtCursor(inputField, textToInsert) {
    const newCursorPos = startPos + textToInsert.length;
    inputField.setSelectionRange(newCursorPos, newCursorPos);
    inputField.focus();
+}
+
+window.onload = addMarkersToMap;
+
+// Function to add markers to the viewing page's map
+function addMarkersToMap() {
+
+    // Add markers to the map
+    markers.forEach(marker => {
+        L.marker(marker.latlng).addTo(map).bindPopup(`<b>${marker.title}</b><br>${marker.description}`);
+    });
 }
