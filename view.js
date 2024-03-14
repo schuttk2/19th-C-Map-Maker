@@ -17,10 +17,4 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=p
     id: 'le-monde'
 }).addTo(map);
         
-L.marker([11.350796722383672, -44.84169809679817]).addTo(map).bindPopup('<b>test</b><br>this is a test').openPopup();
-        
-
-L.marker([11.86735091145932, 3.482539093560622]).addTo(map).bindPopup('<b>test</b><br>this is a test').openPopup();
-
-
-L.marker([-15.284185114076433, 45.129245326706204]).addTo(map).bindPopup('<b>test</b><br>this is a test').openPopup();
+L.marker([11.350796722383672, -44.84169809679817]).addTo(map).bindPopup('<b>Test</b><br>This is a test').openPopup();
