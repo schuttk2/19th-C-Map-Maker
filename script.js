@@ -99,15 +99,12 @@ function generateEmbedCode(mapState){
            const imageBounds = [[-100, -100], [100, 100]];
            L.imageOverlay(imageUrl, imageBounds).addTo(embeddedMap);
            const baseLayer = L.tileLayer('https://schuttk2.github.io/darwin-map/1800s-map.svg', {
-               attribution: 'Le Monde Map'
+                maxZoom: 18,
+                minZoom: 3,
+                attribution: 'Le Monde Map'
            }).addTo(embeddedMap);    
            ${markers.map(marker => `
-                L.marker([${marker.latlng.lat}, ${marker.latlng.lng}], {
-                    icon: L.icon({
-                        icon: '${marker.color}'
-                    })
-                }).addTo(embeddedMap);
-                L.marker.bindPopup('${marker.title}');
+                L.marker([${marker.latlng.lat}, ${marker.latlng.lng}]).addTo(embeddedMap).bindPopup('${marker.title}').openPopup();
            `).join('\n')}
 
        </script>
