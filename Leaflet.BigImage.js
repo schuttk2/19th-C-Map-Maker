@@ -218,7 +218,12 @@
            let image = new Image();
            image.crossOrigin = 'Anonymous';
            image.onload = function () {
-               self.tilesImgs[layer._leaflet_id][imgIndex];
+               self.tilesImgs[layer._leaflet_id][imgIndex] = {
+                img: image,
+                x: tilePos.x,
+                y: tilePos.y,
+                opacity: layer.options.opacity
+               };
                 //if (!self.tilesImgs[layer._leaflet_id][imgIndex]) self.tilesImgs[layer._leaflet_id][imgIndex] = { img: image, x: tilePos.x, y: tilePos.y, opacity: layer.options.opacity };
                resolve();
            };

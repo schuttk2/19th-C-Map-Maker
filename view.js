@@ -16,14 +16,11 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=p
         '<a href="https://tinyurl.com/hcjcp2cp" target="_blank">David Rumsey Map Collection</a>',
     id: 'le-monde'
 }).addTo(map);
+        
+L.marker([11.350796722383672, -44.84169809679817]).addTo(map).bindPopup('<b>test</b><br>this is a test').openPopup();
+        
 
-// Hard-coded markers
-const markers = [
-    { latlng: [0, 0], title: 'Marker 1', description: 'Description 1'},
-    { latlng: [51.51, -0.1], title: 'Marker 2', description: 'Description 2'}
-    // Add more markers as needed
-];
+L.marker([11.86735091145932, 3.482539093560622]).addTo(map).bindPopup('<b>test</b><br>this is a test').openPopup();
 
-markers.forEach(marker => {
-    L.marker(marker.latlng).addTo(map).bindPopup(`<b>${marker.title}</b><br>${marker.description}`);
-});
+
+L.marker([-15.284185114076433, 45.129245326706204]).addTo(map).bindPopup('<b>test</b><br>this is a test').openPopup();

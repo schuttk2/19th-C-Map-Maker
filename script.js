@@ -25,7 +25,7 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=p
    id: 'le-monde'
 }).addTo(map);
 
-L.control.bigImage({position: 'topright'}).addTo(map);
+//L.control.bigImage({position: 'topright'}).addTo(map);
 
 // Function to open About page modal
 function openAboutPage() {
@@ -50,27 +50,46 @@ function exportAndEmbed() {
        zoom: map.getZoom(),
        markers: []
    };
+
    map.eachLayer(layer => {
        if(layer instanceof L.Marker){
            const markerInfo = {
                latlng: layer.getLatLng(),
                title: layer.getPopup().getContent(),
+               color: layer.options.icon.options.iconUrl,
            };
            mapState.markers.push(markerInfo);
        }
    });
    const embedCode = generateEmbedCode(mapState);
    openEmbedCodeModal(embedCode);
+   displayMarkersList(mapState.markers);
 }
+
+// Function to display markers list
+function displayMarkersList(markers) {
+    const markersList = markers.map(marker => `
+        <li>
+            <strong>Coordinates:</strong> ${marker.latlng.lat.toFixed(4)}, ${marker.latlng.lng.toFixed(4)}<br>
+            <strong>Title:</strong> ${marker.title}<br>
+            <strong>Description:</strong> ${marker.description}<br>
+            <strong>Color:</strong> ${marker.color}<br>
+        </li>
+    `).join('');
+
+    const markersListContainer = document.getElementById('markersList');
+    markersListContainer.innerHTML = `<ul>${markersList}</ul>`;
+}
+
 function openEmbedCodeModal(embedCode) {
-   const textarea = document.getElementById('embedCodeTextarea');
-   textarea.value = embedCode;
-   const modal = document.getElementById('embedCodeModal');
-   modal.style.display = 'block';
+    document.getElementById('embedCodeModal').style.display = 'block';
+    const textarea = document.getElementById('embedCodeTextarea');
+    textarea.value = embedCode;
+    const modal = document.getElementById('embedCodeModal');
+    modal.style.display = 'block';
 }
 function closeEmbedCodeModal(){
-   const modal = document.getElementById('embedCodeModal');
-   modal.style.display = 'none';
+   document.getElementById('embedCodeModal').style.display = 'none';
 }
 function copyEmbedCode(){
    const textarea = document.getElementById('embedCodeTextarea');
@@ -80,43 +99,13 @@ function copyEmbedCode(){
 }
 
 function generateEmbedCode(mapState){
-   const { center, zoom, markers } = mapState;
-   const embedCode = `
-       <!DOCTYPE html>
-       <html lang="en">
-       <head>
-           <meta charset="UTF-8">
-           <meta name="viewport" content="width=device-width, initial-scale=1.0">
-           <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-           <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-       </head>
-       <body>
-       <div id="embeddedMap"></div>
-       <script>
-           // edit setView([center], zoom) if necessary
-           const embeddedMap = L.map('embeddedMap').setView([50, 0], 3);
-           const imageUrl = 'https://schuttk2.github.io/darwin-map/1800s-map.svg';
-           const imageBounds = [[-100, -100], [100, 100]];
-           L.imageOverlay(imageUrl, imageBounds).addTo(embeddedMap);
-           const baseLayer = L.tileLayer('https://schuttk2.github.io/darwin-map/1800s-map.svg', {
-                maxZoom: 18,
-                minZoom: 3,
-                attribution: 'Le Monde Map'
-           }).addTo(embeddedMap);    
-           ${markers.map(marker => `
-                L.marker([${marker.latlng.lat}, ${marker.latlng.lng}]).addTo(embeddedMap).bindPopup('${marker.title}').openPopup();
-           `).join('\n')}
-
-       </script>
-       <style>
-           #embeddedMap {
-               height: 600px;
-           }
-       </style>
-       </body>
-       </html>
-   `;
-   return embedCode;
+    const { center, zoom, markers } = mapState;
+    const embedCode = `
+        ${markers.map(marker => `
+            L.marker([${marker.latlng.lat}, ${marker.latlng.lng}]).addTo(embeddedMap).bindPopup('${marker.title}').openPopup();
+        `).join('\n')}
+    `;
+    return embedCode;
 }
 function addPin(){
    alert('Click where you would like the pin to be on the map');
@@ -232,42 +221,6 @@ function addPin(){
        map.off('click');
 
    })
-}
-
-function insertHyperlink(descriptionInput, latlng) {
-   const selection = getSelectedText();
-
-   if (selection) {
-       const url = prompt('Enter the URL for the hyperlink:');
-       if(url) {
-           const hyperlink = `<a href="${url}" target="_blank">${selection}</a>`;
-           insertTextAtCursor(descriptionInput, hyperlink);
-       }
-   }
-}
-
-function getSelectedText() {
-   if (window.getSelection) {
-       return window.getSelection().toString();
-   } else if (document.selection && document.selection.type != 'Control') {
-       return document.selection.createRange().text;
-   }
-   return '';
-}
-
-// Function to insert text at the current cursor position in an input field
-function insertTextAtCursor(inputField, textToInsert) {
-   const startPos = inputField.selectionStart;
-   const endPos = inputField.selectionEnd;
-   const textBefore = inputField.value.substring(0, startPos);
-   const textAfter = inputField.value.substring(endPos, inputField.value.length);
-
-   inputField.value = textBefore + textToInsert + textAfter;
-
-   // Move the cursor to the end of the inserted text
-   const newCursorPos = startPos + textToInsert.length;
-   inputField.setSelectionRange(newCursorPos, newCursorPos);
-   inputField.focus();
 }
 
 window.onload = addMarkersToMap;
