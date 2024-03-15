@@ -11,7 +11,7 @@ markers.forEach(marker => {
 });
 
 // Add a base layer (using a hard-coded image for demonstration)
-const imageUrl = 'images/1800s-map.svg',
+const imageUrl = '1800s-map.svg',
    imageBounds = [
        [-100, -100],
        [100, 100]
