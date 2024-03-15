@@ -1,9 +1,10 @@
-# Historical Map Viewer
+# 19th Century Map Maker
 
-The Historical Map Viewer is a web application that allows users to view and interact with a historical maps from the 1800s. Users can add pins to mark locations on the map and view detailed information associated with each pin.
+The 19th Century Map Maker is a web application that allows users to view and interact with a historical map from the 1800s. Users can add pins to mark locations on the map and view detailed information associated with each pin.
 
 ## Demo
 [Map Site](https://schuttk2.github.io/darwin-map/)
+
 [Embed Example](https://kileyschutte.wixsite.com/test)
 
 ## Features
@@ -20,6 +21,8 @@ The Historical Map Viewer is a web application that allows users to view and int
 - **HTML/CSS**: Used for structuring and styling the web pages.
 - **JavaScript**: Implemented functionality for adding pins, displaying popups, and exporting the map.
 - **SVG Images**: Used for displaying the historical map image.
+
+You can access the image of the map here: (Le Monde, David Rumsey Map Collection)[https://www.davidrumsey.com/luna/servlet/detail/RUMSEY~8~1~22005~700037:Le-Monde%2C-principales-decouvertes-?sort=Pub_List_No_InitialSort%2CPub_Date%2CPub_List_No%2CSeries_No&qvq=q:Le%20Monde%2C%20principales%20decouvertes;sort:Pub_List_No_InitialSort%2CPub_Date%2CPub_List_No%2CSeries_No;lc:RUMSEY~8~1&mi=0&trs=1#]
 
 ## Usage
 Simply navigate to the [19th Centery Map Maker site](https://schuttk2.github.io/darwin-map/) and use the website to create your own map:
