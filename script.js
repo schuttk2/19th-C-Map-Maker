@@ -120,7 +120,6 @@ function generateEmbedCode(mapState){
        </script>
        <style>
             #embeddedMap {
-                //edit the height of the map as necessary
                 height: 600px;
             }
        </style>
