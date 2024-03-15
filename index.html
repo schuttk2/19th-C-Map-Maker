@@ -23,6 +23,8 @@
     </div>
     
     <br>
+    <hr>
+    <br>
     <div id="addPinForm">
         <label for="pinTitle">Title:</label>
         <br>
@@ -45,7 +47,7 @@
                 <label for="redRadio" class="radio-label red-label">Red</label>
             </div>
         </div>
-        
+        <br>
         <button onclick="addPin()">Add Pin</button>
     </div>
 </div>
@@ -54,14 +56,17 @@
     <div class="modal-content">
         <span class="close" onclick="closeAboutPage()">&times;</span>
         <h2>About</h2>
-        <p>This is an interactive map web application created by Kiley Schutte. The site uses the 
-            <a href="https://leafletjs.com/" target="_blank">Leaflet JavaScript library</a>. The purpose of this site is to provide 
-            an option for people wanting to create custom historical maps. The background map tile is 
-            <i>Le Monde, principales decouvertes</i> (1862), by F. A. Garnier (1803-1863). The map is available in 
-            the <a href="https://www.davidrumsey.com/luna/servlet/detail/RUMSEY~8~1~22005~700037:Le-Monde%2C-principales-decouvertes-?sort=Pub_List_No_InitialSort%2CPub_Date%2CPub_List_No%2CSeries_No&qvq=q:Le%20Monde%2C%20principales%20decouvertes;sort:Pub_List_No_InitialSort%2CPub_Date%2CPub_List_No%2CSeries_No;lc:RUMSEY~8~1&mi=0&trs=1#" 
-            target="_blank">David Rumsey Map Collection</a>.
-        </p>
-        <p><a href="image.html">Image of map</a></p>
+        <hr>
+        <p>Welcome to <i>19th Century Map Maker</i>! This website provides you with a unique way to interact with historical maps from the 1800s. Whether you're a history enthusiast, a researcher, or simply curious about the past, this platform allows you to explore this map in detail.</p>
+        <p>Our goal is to make historical maps more accessible and engaging.</p>
+        <h3>Features:</h3>
+        <ul>
+            <li>Add pins to mark locations of interest</li>
+            <li>Customize pins with titles, descriptions, and colors</li>
+            <li>Export and embed created maps on other websites</li>
+        </ul>
+        <p>If you have any suggestions, improvements, or feature requests, feel free to open an issue or create a pull request on <a href="https://github.com/schuttk2/darwin-map" target="_blank">GitHub</a>. Happy exploring!</p>
+        <p><a href="https://www.davidrumsey.com/luna/servlet/detail/RUMSEY~8~1~22005~700037:Le-Monde%2C-principales-decouvertes-?sort=Pub_List_No_InitialSort%2CPub_Date%2CPub_List_No%2CSeries_No&qvq=q:Le%20Monde%2C%20principales%20decouvertes;sort:Pub_List_No_InitialSort%2CPub_Date%2CPub_List_No%2CSeries_No;lc:RUMSEY~8~1&mi=0&trs=1#" target="_blank">Learn more about the map<img class="link" src="external-link.svg" width="20px"></a></p>
         <!-- Add more about information here -->
     </div>
 </div>
@@ -70,18 +75,17 @@
     <div class="modal-content">
         <span class="close" onclick="closeHelpPage()">&times;</span>
         <h2>Help</h2>
+        <hr>
         <h3>Adding pins:</h3>
-        <p>Required fields: Title<br>Optional fields: Description and Color (Color defaults to black if not specified)</p>
+        <p><i>Required fields</i>: Title<br><i>Optional fields</i>: Description and Color (Color defaults to black if not specified)</p>
 
         <h4>Enhanced text:</h4>
-        <p>To insert a link, wrap it with an anchor tag.<br>Ex: <code>Check out &lt;a href="https://www.linkedin.com/in/kileyschutte/"&gt;
-            Kiley's LinkedIn&lt;/a&gt;!</code><br>&nbsp;==>Check out <a href="https://www.linkedin.com/in/kileyschutte/">Kiley's LinkedIn</a>!
-        </p>
+        <p>To include enhanced text in your titles and descriptions, use HTML formatting elements. Here are helpful articles on <a href="https://www.geeksforgeeks.org/html-text-formatting/" target="_blank">text formatting</a> and <a href="https://www.w3schools.com/html/html_links.asp" target="_blank">hyperlinks</a>. </p>
 
         <h3>Removing pins:</h3>
-        <p>Right click on the pin you want to remove</p>
+        <p>Right click on a pin to remove it.</p>
         <h3>Exporting and Embedding</h3>
-        <p>Copy the code under "Export" and paste it as an embed in another site. If needed, edit the embed code (i.e. change the center point and zoom level)</p>
+        <p>Copy the code under "Export" and paste it as an embed in another site. If needed, edit the embed code (i.e. change the center point, zoom level, or height of map)</p>
         <!-- Add more help information here -->
     </div>
 </div>
@@ -89,8 +93,7 @@
     <div id="embedDiv" class="modal-content">
         <span class="close" onclick="closeEmbedCodeModal()">&times;</span>
         <h2>Export</h2>
-        <p>To export your map, </p>
-        <p><a href="view.html">View Page</a> </p>
+        <hr>
         <p>Copy the following code to embed into another site:</p>
         <textarea id="embedCodeTextarea" readonly></textarea>
         <button id="copyButton" onclick="copyEmbedCode()">Copy Code</button>

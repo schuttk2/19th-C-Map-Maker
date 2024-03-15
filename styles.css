@@ -120,3 +120,7 @@ input[type=text] {
 a {
    color: #6e5757;
 }
+
+.link {
+   vertical-align: middle;
+}
