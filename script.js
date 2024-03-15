@@ -11,7 +11,7 @@ markers.forEach(marker => {
 });
 
 // Add a base layer (using a hard-coded image for demonstration)
-const imageUrl = '1800s-map.svg',
+const imageUrl = 'images/1800s-map.svg',
    imageBounds = [
        [-100, -100],
        [100, 100]
@@ -104,10 +104,10 @@ function generateEmbedCode(mapState){
        <script>
            // edit setView([center], zoom) if necessary
            const embeddedMap = L.map('embeddedMap').setView([50, 0], 3);
-           const imageUrl = 'https://schuttk2.github.io/darwin-map/1800s-map.svg';
+           const imageUrl = 'https://schuttk2.github.io/19th-C-Map-Maker/1800s-map.svg';
            const imageBounds = [[-100, -100], [100, 100]];
            L.imageOverlay(imageUrl, imageBounds).addTo(embeddedMap);
-           const baseLayer = L.tileLayer('https://schuttk2.github.io/darwin-map/1800s-map.svg', {
+           const baseLayer = L.tileLayer('https://schuttk2.github.io/19th-C-Map-Maker/1800s-map.svg', {
                 maxZoom: 18,
                 minZoom: 3,
                 attribution: 'Le Monde Map'
@@ -144,21 +144,21 @@ function addPin(){
        if(radio.length > 0){
            color = radio[0].value;
        }else{
-           color = 'https://schuttk2.github.io/darwin-map/Black_Icon.png';
+           color = 'images/Black_Icon.png';
        }
        if(!title){
            alert('Please enter a title for this pin.');
            return;
        }
        const markerIcon = L.icon({
-           iconUrl: `https://schuttk2.github.io/darwin-map/Black_Icon.png`,
+           iconUrl: `images/Black_Icon.png`,
            iconSize: [31, 46], // size of the icon
            iconAnchor: [0, 46], // point of the icon which will correspond to marker's location
            popupAnchor: [0, -45] // point from which the popup should open relative to the iconAnchor
        });
-       if(color === 'https://schuttk2.github.io/darwin-map/Red_Icon.png'){
+       if(color === 'images/Red_Icon.png'){
            const markerIcon = L.icon({
-               iconUrl: `https://schuttk2.github.io/darwin-map/Red_Icon.png`,
+               iconUrl: `images/Red_Icon.png`,
                iconSize: [31, 46], // size of the icon
                iconAnchor: [0, 46], // point of the icon which will correspond to marker's location
                popupAnchor: [0, -45] // point from which the popup should open relative to the iconAnchor
@@ -182,9 +182,9 @@ function addPin(){
 
             // Add the marker information to the markers array
             markers.push(markerInfo);
-       }else if(color === 'https://schuttk2.github.io/darwin-map/Orange_Icon.png'){
+       }else if(color === 'images/Orange_Icon.png'){
            const markerIcon = L.icon({
-               iconUrl: `https://schuttk2.github.io/darwin-map/Orange_Icon.png`,
+               iconUrl: `images/Orange_Icon.png`,
                iconSize: [31, 46], // size of the icon
                iconAnchor: [0, 46], // point of the icon which will correspond to marker's location
                popupAnchor: [0, -45] // point from which the popup should open relative to the iconAnchor
@@ -209,7 +209,7 @@ function addPin(){
             markers.push(markerInfo);
        }else{
             const markerIcon = L.icon({
-                iconUrl: `https://schuttk2.github.io/darwin-map/Black_Icon.png`,
+                iconUrl: `images/Black_Icon.png`,
                 iconSize: [31, 46], // size of the icon
                 iconAnchor: [0, 46], // point of the icon which will correspond to marker's location
                 popupAnchor: [0, -45] // point from which the popup should open relative to the iconAnchor
